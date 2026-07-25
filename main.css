@@ -1,0 +1,997 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================================ */
+/* СВЕТЛАЯ ТЕМА ПО УМОЛЧАНИЮ */
+/* ============================================================ */
+body {
+    background-color: #f5f5f5;
+    color: #1a1a1a;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#nav {
+    width: 60%;
+    margin: 16px auto;
+    font-size: larger;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#nav p {
+    cursor: pointer;
+    color: #1a1a1a;
+    transition: color 0.3s;
+    padding: 5px 10px;
+    border-radius: 4px;
+    user-select: none;
+}
+
+#nav p:hover {
+    color: #4a6cf7;
+    background-color: rgba(74, 108, 247, 0.05);
+}
+
+/* Скрываем пункт меню "История про Гитлера" до активации */
+#nav p#hitler {
+    display: none;
+}
+
+hr {
+    margin: auto;
+    border: 1px solid #d0d0d0;
+    width: 60%;
+}
+
+main {
+    width: 40%;
+    margin: 25px auto;
+    flex: 1;
+    padding: 0 15px;
+}
+
+.friendlyText {
+    width: 100%;
+}
+
+.text {
+    margin: 10px auto 20px auto;
+    font-size: medium;
+}
+
+/* ============================================================ */
+/* АНИМАЦИЯ ПОЯВЛЕНИЯ ДЛЯ ФОРМ, ТЕКСТОВЫХ БЛОКОВ И ПРОЩАЛЬНОГО СООБЩЕНИЯ */
+/* ============================================================ */
+.form,
+#SantaText,
+#philosopherText,
+#hitlerText,
+#farewellMessage {
+    display: none;
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    transition: none;
+}
+
+.form.visible,
+#SantaText.visible,
+#philosopherText.visible,
+#hitlerText.visible,
+#farewellMessage.visible {
+    display: block;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ============================================================ */
+/* АНИМАЦИЯ ПЕЧАТИ - ОСНОВНЫЕ СТИЛИ */
+/* ============================================================ */
+#h {
+    display: block;
+    font-size: 36px;
+    color: #1a1a1a;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #4a6cf7;
+    width: 0;
+    animation: none;
+    margin: 200px 0 0 0;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#h.typing {
+    animation: typingDesktop 3.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards,
+               blink-caret-desktop 0.8s step-end infinite;
+}
+
+@keyframes typingDesktop {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+@keyframes blink-caret-desktop {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: #4a6cf7; }
+}
+
+#h.typing-done {
+    border-right: none !important;
+    width: 100% !important;
+}
+
+.Text {
+    text-align: center;
+    margin: 200px 0 0 0;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.form {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+fieldset {
+    border-radius: 8px;
+    border: 2px solid #d0d0d0;
+    background-color: #ffffff;
+    padding: 25px;
+    transition: border-color 0.3s;
+}
+
+fieldset:hover {
+    border-color: #4a6cf7;
+}
+
+legend h1 {
+    color: #1a1a1a;
+    font-size: 24px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+}
+
+h3 {
+    margin: 0 0 7px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+input[type="text"] {
+    background-color: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    width: 100%;
+    padding: 10px 12px;
+    color: #1a1a1a;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 15px;
+}
+
+input[type="text"]:focus {
+    border-color: #4a6cf7;
+    box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.15);
+    outline: none;
+}
+
+#buttons {
+    width: 100%;
+    height: auto;
+    margin: 25px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="button"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 20px;
+    background-color: #4a6cf7;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+input[type="button"]:hover {
+    background-color: #3a5cd5;
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(74, 108, 247, 0.3);
+}
+
+input[type="button"]:active {
+    transform: scale(0.98);
+}
+
+#SantaText,
+#philosopherText,
+#hitlerText {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    color: #1a1a1a;
+    line-height: 1.8;
+    margin-top: 15px;
+}
+
+#hitlerText {
+    margin-bottom: 20px;
+}
+
+/* Стили для прощального сообщения */
+#farewellMessage {
+    font-size: 26px;
+    text-align: center;
+    margin-top: 50px;
+    font-weight: bold;
+    color: #1a1a1a;
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid #4a6cf7;
+}
+
+.lang-btn {
+    height: 36px;
+    width: 60px;
+    background-color: #1a1a1a;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.lang-btn:hover {
+    background-color: #333;
+    transform: scale(1.05);
+}
+
+.lang-btn:active {
+    transform: scale(0.95);
+}
+
+.ru {
+    display: none;
+}
+
+/* ============================================================ */
+/* УЛУЧШЕННАЯ АДАПТАЦИЯ ДЛЯ ВСЕХ УСТРОЙСТВ */
+/* ============================================================ */
+
+/* Планшеты и маленькие ноутбуки (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    #nav {
+        width: 75%;
+        font-size: 16px;
+    }
+    
+    .lang-btn {
+        height: 34px;
+        width: 55px;
+        font-size: 13px;
+    }
+    
+    hr {
+        width: 75% !important;
+    }
+    
+    main {
+        width: 65%;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+    
+    #h {
+        font-size: 30px !important;
+        margin: 120px 0 0 0 !important;
+    }
+    
+    #h.typing {
+        animation: typingTablet 3.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards,
+                   blink-caret-tablet 0.8s step-end infinite;
+    }
+    
+    @keyframes typingTablet {
+        0% { width: 0; }
+        100% { width: 100%; }
+    }
+    
+    @keyframes blink-caret-tablet {
+        0%, 100% { border-color: transparent; }
+        50% { border-color: #4a6cf7; }
+    }
+    
+    #h.typing-done {
+        border-right: none !important;
+        width: 100% !important;
+    }
+    
+    .form {
+        width: 100%;
+    }
+    
+    fieldset {
+        padding: 25px;
+    }
+    
+    legend h1 {
+        font-size: 22px !important;
+    }
+    
+    h3 {
+        font-size: 15px;
+        margin: 10px 0 5px 0;
+    }
+    
+    input[type="text"] {
+        font-size: 15px;
+        padding: 10px 12px;
+    }
+    
+    input[type="button"] {
+        font-size: 17px;
+        padding: 14px 20px;
+        max-width: 250px;
+    }
+    
+    .text {
+        font-size: 15px;
+        padding: 15px;
+        line-height: 1.7;
+        margin-top: 10px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    #SantaText,
+    #philosopherText,
+    #hitlerText {
+        font-size: 15px;
+        padding: 20px;
+        margin-top: 10px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    #farewellMessage {
+        font-size: 22px;
+        padding: 25px;
+        margin-top: 40px;
+    }
+}
+
+/* Большие телефоны и маленькие планшеты (481px - 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+    #nav {
+        width: 90%;
+        font-size: 14px;
+        gap: 8px;
+    }
+    
+    #nav p {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+    
+    .lang-btn {
+        height: 32px;
+        width: 50px;
+        font-size: 12px;
+    }
+    
+    hr {
+        width: 90% !important;
+    }
+    
+    main {
+        width: 90%;
+        margin: 15px auto;
+        padding: 0 15px;
+    }
+    
+    #h {
+        font-size: 24px !important;
+        margin: 80px 0 0 0 !important;
+    }
+    
+    #h.typing {
+        animation: typingMobile 4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards,
+                   blink-caret-mobile 0.8s step-end infinite;
+    }
+    
+    @keyframes typingMobile {
+        0% { width: 0; }
+        100% { width: 100%; }
+    }
+    
+    @keyframes blink-caret-mobile {
+        0%, 100% { border-color: transparent; }
+        50% { border-color: #4a6cf7; }
+    }
+    
+    #h.typing-done {
+        border-right: none !important;
+        width: 100% !important;
+    }
+    
+    .form {
+        width: 100%;
+    }
+    
+    fieldset {
+        padding: 20px;
+    }
+    
+    legend h1 {
+        font-size: 20px !important;
+    }
+    
+    h3 {
+        font-size: 14px;
+        margin: 12px 0 5px 0;
+    }
+    
+    input[type="text"] {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+    
+    #buttons {
+        margin: 20px 0 0 0;
+    }
+    
+    input[type="button"] {
+        font-size: 16px;
+        padding: 14px 20px;
+        max-width: 100%;
+    }
+    
+    .text {
+        font-size: 14px;
+        padding: 12px;
+        line-height: 1.6;
+        margin-top: 8px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    #SantaText,
+    #philosopherText,
+    #hitlerText {
+        font-size: 14px;
+        padding: 18px;
+        margin-top: 8px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    #farewellMessage {
+        font-size: 20px;
+        padding: 20px;
+        margin-top: 35px;
+    }
+}
+
+/* Маленькие телефоны (320px - 480px) */
+@media screen and (max-width: 480px) {
+    #nav {
+        width: 95%;
+        gap: 5px;
+        font-size: 12px;
+        padding: 5px 0;
+    }
+    
+    #nav p {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+    
+    .lang-btn {
+        height: 28px;
+        width: 42px;
+        font-size: 10px;
+        padding: 0 5px;
+    }
+    
+    hr {
+        width: 95% !important;
+    }
+    
+    main {
+        width: 96%;
+        margin: 10px auto;
+        padding: 0 10px;
+    }
+    
+    #h {
+        font-size: 18px !important;
+        margin: 50px 0 0 0 !important;
+        border-right-width: 2px;
+    }
+    
+    #h.typing {
+        animation: typingSmall 4.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards,
+                   blink-caret-small 0.8s step-end infinite;
+    }
+    
+    @keyframes typingSmall {
+        0% { width: 0; }
+        100% { width: 100%; }
+    }
+    
+    @keyframes blink-caret-small {
+        0%, 100% { border-color: transparent; }
+        50% { border-color: #4a6cf7; }
+    }
+    
+    #h.typing-done {
+        border-right: none !important;
+        width: 100% !important;
+    }
+    
+    .form {
+        width: 100%;
+    }
+    
+    fieldset {
+        padding: 15px;
+        border-width: 1.5px;
+    }
+    
+    legend h1 {
+        font-size: 17px !important;
+    }
+    
+    h3 {
+        font-size: 12px;
+        margin: 10px 0 4px 0;
+    }
+    
+    input[type="text"] {
+        font-size: 13px;
+        padding: 8px 10px;
+        border-width: 1.5px;
+    }
+    
+    #buttons {
+        margin: 15px 0 0 0;
+    }
+    
+    input[type="button"] {
+        font-size: 14px;
+        padding: 12px 16px;
+        max-width: 100%;
+        border-radius: 6px;
+    }
+    
+    .text {
+        font-size: 13px;
+        padding: 10px;
+        line-height: 1.5;
+        margin-top: 5px !important;
+        margin-bottom: 12px !important;
+    }
+    
+    #SantaText,
+    #philosopherText,
+    #hitlerText {
+        font-size: 13px;
+        padding: 15px;
+        margin-top: 5px !important;
+        margin-bottom: 12px !important;
+    }
+    
+    #farewellMessage {
+        font-size: 16px;
+        padding: 15px;
+        margin-top: 25px;
+        border-width: 1.5px;
+    }
+}
+
+/* Очень маленькие экраны (до 320px) */
+@media screen and (max-width: 320px) {
+    #nav {
+        gap: 3px;
+        font-size: 10px;
+    }
+    
+    #nav p {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+    
+    .lang-btn {
+        height: 24px;
+        width: 36px;
+        font-size: 9px;
+    }
+    
+    #h {
+        font-size: 16px !important;
+        margin: 30px 0 0 0 !important;
+    }
+    
+    fieldset {
+        padding: 12px;
+    }
+    
+    legend h1 {
+        font-size: 15px !important;
+    }
+    
+    h3 {
+        font-size: 11px;
+    }
+    
+    input[type="text"] {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+    
+    input[type="button"] {
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+    
+    .text {
+        font-size: 12px;
+        padding: 8px;
+    }
+    
+    #SantaText,
+    #philosopherText,
+    #hitlerText {
+        font-size: 12px;
+        padding: 12px;
+    }
+    
+    #farewellMessage {
+        font-size: 14px;
+        padding: 12px;
+        margin-top: 20px;
+    }
+}
+
+/* Альбомная ориентация на телефонах */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    #h {
+        font-size: 20px !important;
+        margin: 20px 0 0 0 !important;
+    }
+    
+    #h.typing {
+        animation: typingLandscape 3.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards,
+                   blink-caret-landscape 0.8s step-end infinite;
+    }
+    
+    @keyframes typingLandscape {
+        0% { width: 0; }
+        100% { width: 100%; }
+    }
+    
+    @keyframes blink-caret-landscape {
+        0%, 100% { border-color: transparent; }
+        50% { border-color: #4a6cf7; }
+    }
+    
+    #h.typing-done {
+        border-right: none !important;
+        width: 100% !important;
+    }
+    
+    main {
+        width: 70%;
+        margin: 10px auto;
+        padding: 0 15px;
+    }
+    
+    .form {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    
+    fieldset {
+        padding: 15px;
+    }
+    
+    legend h1 {
+        font-size: 18px !important;
+    }
+    
+    h3 {
+        font-size: 13px;
+        margin: 8px 0 3px 0;
+    }
+    
+    input[type="text"] {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+    
+    #buttons {
+        margin: 15px 0 0 0;
+    }
+    
+    input[type="button"] {
+        font-size: 15px;
+        padding: 10px 16px;
+        max-width: 200px;
+    }
+    
+    #SantaText,
+    #philosopherText,
+    #hitlerText {
+        margin-top: 5px !important;
+        margin-bottom: 12px !important;
+        padding: 15px;
+    }
+    
+    #farewellMessage {
+        font-size: 18px;
+        padding: 15px;
+        margin-top: 20px;
+    }
+}
+
+/* Портретная ориентация на телефонах */
+@media screen and (orientation: portrait) and (max-width: 720px) {
+    #h {
+        margin: 60px 0 0 0 !important;
+    }
+    
+    .text {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    
+    #SantaText,
+    #philosopherText,
+    #hitlerText {
+        margin-top: 8px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    #farewellMessage {
+        margin-top: 30px;
+    }
+}
+
+/* Экраны с высокой плотностью пикселей */
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+    .text,
+    #SantaText,
+    #philosopherText,
+    #hitlerText,
+    #farewellMessage,
+    h3,
+    h1,
+    p {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Большие экраны (свыше 1024px) */
+@media screen and (min-width: 1025px) {
+    main {
+        width: 40%;
+        margin: 30px auto;
+    }
+    
+    #h {
+        font-size: 38px !important;
+        margin: 250px 0 0 0 !important;
+    }
+    
+    #SantaText,
+    #philosopherText,
+    #hitlerText {
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+    
+    .text {
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+    
+    #farewellMessage {
+        margin-top: 50px;
+        font-size: 28px;
+    }
+}
+
+/* Светлая тема */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #f5f5f5;
+        color: #1a1a1a;
+    }
+    fieldset {
+        background-color: #ffffff;
+        border-color: #d0d0d0;
+    }
+    input[type="text"] {
+        background-color: #ffffff;
+        border-color: #d0d0d0;
+        color: #1a1a1a;
+    }
+    input[type="button"] {
+        background-color: #4a6cf7;
+        color: white;
+    }
+    .lang-btn {
+        background-color: #1a1a1a;
+        color: white;
+    }
+    #nav p {
+        color: #1a1a1a;
+    }
+    #SantaText,
+    #philosopherText,
+    #hitlerText,
+    #farewellMessage {
+        background-color: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        color: #1a1a1a;
+    }
+    #farewellMessage {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    }
+    #h {
+        color: #1a1a1a;
+    }
+    h3 {
+        color: #333;
+    }
+    legend h1 {
+        color: #1a1a1a;
+    }
+}
+
+/* Тёмная тема (принудительно светлая по вашему запросу) */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #f5f5f5 !important;
+        color: #1a1a1a !important;
+    }
+    fieldset {
+        background-color: #ffffff !important;
+        border-color: #d0d0d0 !important;
+    }
+    input[type="text"] {
+        background-color: #ffffff !important;
+        border-color: #d0d0d0 !important;
+        color: #1a1a1a !important;
+    }
+    input[type="button"] {
+        background-color: #4a6cf7 !important;
+        color: white !important;
+    }
+    .lang-btn {
+        background-color: #1a1a1a !important;
+        color: white !important;
+    }
+    #nav p {
+        color: #1a1a1a !important;
+    }
+    #SantaText,
+    #philosopherText,
+    #hitlerText,
+    #farewellMessage {
+        background-color: #ffffff !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+        color: #1a1a1a !important;
+    }
+    #farewellMessage {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%) !important;
+    }
+    #h {
+        color: #1a1a1a !important;
+    }
+    h3 {
+        color: #333 !important;
+    }
+    legend h1 {
+        color: #1a1a1a !important;
+    }
+    hr {
+        border-color: #d0d0d0 !important;
+    }
+}
+
+/* Отключение анимаций для пользователей с ограниченными возможностями */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    #h.typing {
+        animation: none !important;
+        width: 100% !important;
+        border-right: none !important;
+    }
+    
+    .form.visible,
+    #SantaText.visible,
+    #philosopherText.visible,
+    #hitlerText.visible,
+    #farewellMessage.visible {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Улучшенная читаемость на мобильных устройствах */
+@media screen and (max-width: 767px) {
+    .text {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    #SantaText,
+    #philosopherText,
+    #hitlerText,
+    #farewellMessage {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    input[type="text"] {
+        font-size: 16px !important; /* Предотвращает автоматическое увеличение на iOS */
+    }
+}
+
+/* Стили для скроллбара на мобильных устройствах */
+.form::-webkit-scrollbar {
+    width: 6px;
+}
+
+.form::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+.form::-webkit-scrollbar-thumb {
+    background: #4a6cf7;
+    border-radius: 4px;
+}
+
+.form::-webkit-scrollbar-thumb:hover {
+    background: #3a5cd5;
+}
